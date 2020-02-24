@@ -1,1 +1,1 @@
-Install-WindowsFeature -name Telnet-Client -Force
+Install-WindowsFeature -name Telnet-Client
