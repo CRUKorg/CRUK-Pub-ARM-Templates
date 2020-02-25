@@ -20,21 +20,9 @@ Remove-NetIPAddress -InterfaceAlias $nicAlias -Confirm:$false
 Remove-NetRoute -InterfaceAlias $nicAlias -Confirm:$false
 
 #Set New
-try{
+
 New-NetIPAddress -InterfaceAlias $nicAlias -IPAddress $newIP -PrefixLength $newSubnet -DefaultGateway $newGateway
 Set-DnsClientServerAddress -InterfaceIndex $dnsIndex -ServerAddresses $newDNSServers
 
-$out =@()
-$out = New-Object customObject @{
-    NewIP = $newIP
-    $newSubnet = $newSubnet
-    Info = "Success"
-}
-$out | Export-Csv C:\info.csv
-}
-catch{
-    $out = "Operation has failed"
-    $out | Out-File C:\fail.txt
-}
 
 #endregion
