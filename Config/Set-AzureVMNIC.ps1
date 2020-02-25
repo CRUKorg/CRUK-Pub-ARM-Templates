@@ -15,14 +15,10 @@ $DNSServers = ((Get-NetIPConfiguration).dnsserver ).serveraddresses | Where-Obje
 $newDNSServers = $DNSServers -join ','
 #endregion
 
-#Region Remove Current Settings
 #Remove Current
 Remove-NetIPAddress -InterfaceAlias $nicAlias -Confirm:$false
 Remove-NetRoute -InterfaceAlias $nicAlias -Confirm:$false
-#endregion
 
-#Region Set new
 #Set New
 New-NetIPAddress -InterfaceAlias $nicAlias -IPAddress $newIP -PrefixLength $newSubnet -DefaultGateway $newGateway
 Set-DnsClientServerAddress -InterfaceIndex $dnsIndex -ServerAddresses $newDNSServers
-#endregion
